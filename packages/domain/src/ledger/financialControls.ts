@@ -5,7 +5,7 @@ import {
   journalEntries,
   journalLines,
   financialPeriods,
-  DbTransaction,
+  DbExecutor,
 } from "@stoker/db";
 import { CommandHandler } from "../shared/command";
 import { assertPermission } from "../shared/permissions";
@@ -179,7 +179,7 @@ export const recordManualJournalCommand: CommandHandler<ManualJournalInput, { id
 /**
  * Generates trial balance from all accounts and lines
  */
-export async function generateTrialBalance(tx: DbTransaction, orgId: string) {
+export async function generateTrialBalance(tx: DbExecutor, orgId: string) {
   const allAccounts = await tx.select().from(accounts).where(eq(accounts.orgId, orgId));
   const allLines = await tx.select().from(journalLines);
 

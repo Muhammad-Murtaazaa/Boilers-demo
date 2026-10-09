@@ -9,7 +9,7 @@ import {
   payrollInputs,
   boilers,
   siteAssignments,
-  DbTransaction,
+  DbExecutor,
 } from "@stoker/db";
 import { CommandHandler } from "../shared/command";
 import { assertPermission } from "../shared/permissions";
@@ -29,7 +29,7 @@ export interface CheckCoverageResult {
  * Checks shift coverage for all active boilers across site shifts (HR-06)
  */
 export async function checkShiftCoverage(
-  tx: DbTransaction,
+  tx: DbExecutor,
   orgId: string,
   siteId: string
 ): Promise<CheckCoverageResult[]> {

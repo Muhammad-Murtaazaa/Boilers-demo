@@ -6,7 +6,7 @@ import {
   floatTopUpRequests,
   boilerCertificates,
   fuelDeliveries,
-  DbTransaction,
+  DbExecutor,
 } from "@stoker/db";
 import { CommandHandler } from "../shared/command";
 import { assertPermission } from "../shared/permissions";
@@ -26,7 +26,7 @@ export interface SystemAlert {
 /**
  * Scans all operational vectors to detect actionable anomalies and alerts (M12)
  */
-export async function scanSystemAlerts(tx: DbTransaction, orgId: string): Promise<SystemAlert[]> {
+export async function scanSystemAlerts(tx: DbExecutor, orgId: string): Promise<SystemAlert[]> {
   const alerts: SystemAlert[] = [];
 
   // 1. Float alerts: Check cash floats below minimum or negative
