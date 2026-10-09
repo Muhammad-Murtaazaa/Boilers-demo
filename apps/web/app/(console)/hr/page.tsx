@@ -2,20 +2,12 @@
 
 import { useState, useEffect } from "react";
 import {
-  Users,
   UserPlus,
   Search,
   MapPin,
-  Flame,
-  Phone,
-  Clock,
-  CheckCircle2,
   X,
   Edit2,
   Trash2,
-  Briefcase,
-  DollarSign,
-  Filter,
 } from "lucide-react";
 import { DemoStore, DemoWorker, DemoBoiler } from "../../demo-store";
 
@@ -365,7 +357,7 @@ export default function HRConsolePage() {
                   </label>
                   <select
                     value={role}
-                    onChange={(e) => setRole(e.target.value as any)}
+                    onChange={(e) => setRole(e.target.value as DemoWorker["role"])}
                     className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:bg-white focus:border-[#FF6600] focus:outline-none"
                   >
                     <option value="Lead Boiler Operator">Lead Boiler Operator</option>
@@ -382,7 +374,7 @@ export default function HRConsolePage() {
                   </label>
                   <select
                     value={shift}
-                    onChange={(e) => setShift(e.target.value as any)}
+                    onChange={(e) => setShift(e.target.value as DemoWorker["shift"])}
                     className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:bg-white focus:border-[#FF6600] focus:outline-none"
                   >
                     <option value="Morning (06:00 - 14:00)">Morning (06:00 - 14:00)</option>
@@ -499,7 +491,7 @@ export default function HRConsolePage() {
                   </label>
                   <select
                     value={editRole}
-                    onChange={(e) => setEditRole(e.target.value as any)}
+                    onChange={(e) => setEditRole(e.target.value as DemoWorker["role"])}
                     className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:bg-white focus:border-[#FF6600] focus:outline-none"
                   >
                     <option value="Lead Boiler Operator">Lead Boiler Operator</option>
@@ -516,7 +508,7 @@ export default function HRConsolePage() {
                   </label>
                   <select
                     value={editStatus}
-                    onChange={(e) => setEditStatus(e.target.value as any)}
+                    onChange={(e) => setEditStatus(e.target.value as DemoWorker["status"])}
                     className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:bg-white focus:border-[#FF6600] focus:outline-none"
                   >
                     <option value="active">Active (On Duty)</option>
@@ -550,7 +542,7 @@ export default function HRConsolePage() {
                   </label>
                   <select
                     value={editShift}
-                    onChange={(e) => setEditShift(e.target.value as any)}
+                    onChange={(e) => setEditShift(e.target.value as DemoWorker["shift"])}
                     className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:bg-white focus:border-[#FF6600] focus:outline-none"
                   >
                     <option value="Morning (06:00 - 14:00)">Morning (06:00 - 14:00)</option>

@@ -3,23 +3,17 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  Flame,
   DollarSign,
   MapPin,
-  Clock,
   ArrowRight,
-  Plus,
   Send,
-  Fuel,
   CheckCircle2,
-  Users,
 } from "lucide-react";
 import { DemoStore, DemoBoiler, DemoExpense, DemoWorker } from "../../../demo-store";
 
 export default function FieldHomePage() {
   const [boilers, setBoilers] = useState<DemoBoiler[]>([]);
   const [staff, setStaff] = useState<DemoWorker[]>([]);
-  const [expenses, setExpenses] = useState<DemoExpense[]>([]);
 
   const [selectedBoilerId, setSelectedBoilerId] = useState("blr-01");
   const [amount, setAmount] = useState("45.00");
@@ -30,7 +24,6 @@ export default function FieldHomePage() {
   const refresh = () => {
     setBoilers(DemoStore.getBoilers());
     setStaff(DemoStore.getStaff());
-    setExpenses(DemoStore.getExpenses());
   };
 
   useEffect(() => {
@@ -206,7 +199,7 @@ export default function FieldHomePage() {
           <label className="text-xs font-semibold text-gray-700 block mb-1">Category</label>
           <select
             value={category}
-            onChange={(e) => setCategory(e.target.value as any)}
+            onChange={(e) => setCategory(e.target.value as DemoExpense["category"])}
             className="w-full p-2.5 bg-[#F3F4F7] text-xs font-medium text-gray-900 rounded-xl border border-transparent focus:border-[#FF6600] focus:bg-white focus:outline-none"
           >
             <option value="Biomass Fuel">Biomass Fuel (Pellets / Briquettes)</option>

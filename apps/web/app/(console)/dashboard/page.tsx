@@ -9,22 +9,13 @@ import {
   DollarSign,
   Flame,
   CheckCircle2,
-  AlertTriangle,
   Wrench,
   PauseCircle,
   Plus,
   X,
-  ExternalLink,
-  ChevronRight,
-  TrendingUp,
-  Building,
   Fuel,
-  Activity,
-  Layers,
-  Phone,
-  Calendar,
 } from "lucide-react";
-import { DemoStore, DemoBoiler, DemoWorker, DemoExpense } from "../../demo-store";
+import { DemoStore, DemoBoiler, DemoExpense } from "../../demo-store";
 
 export default function DashboardPage() {
   const [boilers, setBoilers] = useState<DemoBoiler[]>([]);
@@ -781,7 +772,7 @@ export default function DashboardPage() {
                 </label>
                 <select
                   value={newExpenseCategory}
-                  onChange={(e) => setNewExpenseCategory(e.target.value as any)}
+                  onChange={(e) => setNewExpenseCategory(e.target.value as DemoExpense["category"])}
                   className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:bg-white focus:border-[#FF6600] focus:outline-none"
                 >
                   <option value="Biomass Fuel">Biomass Fuel (Pellets / Briquettes)</option>

@@ -8,14 +8,9 @@ import {
   CheckCircle2,
   Plus,
   Search,
-  Flame,
   ShieldCheck,
-  TrendingDown,
-  RefreshCw,
   X,
-  Check,
   Activity,
-  Layers,
 } from "lucide-react";
 import { DemoStore, DemoWaterTest, DemoBoiler } from "../../demo-store";
 
@@ -342,7 +337,7 @@ export default function LabPage() {
                   <label className="block font-semibold text-gray-700 mb-1">Sample Point</label>
                   <select
                     value={labPoint}
-                    onChange={(e) => setLabPoint(e.target.value as any)}
+                    onChange={(e) => setLabPoint(e.target.value as DemoWaterTest["samplePoint"])}
                     className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="Boiler Feed Water">Boiler Feed Water</option>

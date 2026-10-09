@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Building2, MapPin, Flame, Users, Plus, X, Search } from "lucide-react";
+import { Building2, MapPin, Flame, Users, Search } from "lucide-react";
 import { DemoStore } from "../../demo-store";
 
 export default function SitesConsolePage() {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { DollarSign, Fuel, Search, Filter, Plus, X, CheckCircle2 } from "lucide-react";
+import { DollarSign, Search, Plus, X } from "lucide-react";
 import { DemoStore, DemoExpense, DemoBoiler } from "../../demo-store";
 
 export default function ExpensesConsolePage() {
@@ -218,7 +218,7 @@ export default function ExpensesConsolePage() {
                 <label className="text-xs font-semibold text-gray-700 block mb-1">Category</label>
                 <select
                   value={category}
-                  onChange={(e) => setCategory(e.target.value as any)}
+                  onChange={(e) => setCategory(e.target.value as DemoExpense["category"])}
                   className="w-full p-2.5 bg-gray-50 border border-gray-200 rounded-xl text-xs font-medium text-gray-900 focus:bg-white focus:border-[#FF6600] focus:outline-none"
                 >
                   <option value="Biomass Fuel">Biomass Fuel</option>

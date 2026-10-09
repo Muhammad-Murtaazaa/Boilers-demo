@@ -6,13 +6,8 @@ import {
   Plus,
   Search,
   AlertTriangle,
-  CheckCircle2,
-  Package,
-  Layers,
   Fuel,
-  TrendingDown,
   X,
-  Warehouse,
 } from "lucide-react";
 import { DemoStore, DemoInventoryItem } from "../../demo-store";
 
@@ -265,7 +260,7 @@ export default function InventoryConsolePage() {
                   <label className="block font-semibold text-gray-700 mb-1">Category</label>
                   <select
                     value={category}
-                    onChange={(e) => setCategory(e.target.value as any)}
+                    onChange={(e) => setCategory(e.target.value as DemoInventoryItem["category"])}
                     className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="Biofuel Bulk">Biofuel Bulk</option>

@@ -4,20 +4,16 @@ import { useState, useEffect } from "react";
 import {
   Wrench,
   Calendar,
-  AlertTriangle,
   CheckCircle2,
   Clock,
   Plus,
   ShieldCheck,
   Search,
-  Filter,
   Check,
   Flame,
   ArrowUpRight,
   TrendingUp,
   FileText,
-  Hammer,
-  AlertOctagon,
   X,
 } from "lucide-react";
 import { DemoStore, DemoWorkOrder, DemoPMSchedule, DemoBoiler } from "../../demo-store";
@@ -569,7 +565,7 @@ export default function MaintenancePage() {
                   <label className="block font-semibold text-gray-700 mb-1">Work Order Category</label>
                   <select
                     value={woCategory}
-                    onChange={(e) => setWoCategory(e.target.value as any)}
+                    onChange={(e) => setWoCategory(e.target.value as DemoWorkOrder["category"])}
                     className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="Preventive">Preventive Maintenance</option>
@@ -582,7 +578,7 @@ export default function MaintenancePage() {
                   <label className="block font-semibold text-gray-700 mb-1">Priority Level</label>
                   <select
                     value={woPriority}
-                    onChange={(e) => setWoPriority(e.target.value as any)}
+                    onChange={(e) => setWoPriority(e.target.value as DemoWorkOrder["priority"])}
                     className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="Emergency">Emergency</option>
@@ -745,7 +741,7 @@ export default function MaintenancePage() {
                   <label className="block font-semibold text-gray-700 mb-1">Criticality</label>
                   <select
                     value={pmCriticality}
-                    onChange={(e) => setPmCriticality(e.target.value as any)}
+                    onChange={(e) => setPmCriticality(e.target.value as DemoPMSchedule["criticality"])}
                     className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
                   >
                     <option value="Critical">Critical</option>

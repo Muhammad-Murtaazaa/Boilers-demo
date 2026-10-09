@@ -5,6 +5,7 @@ import {
   journalEntries,
   journalLines,
   financialPeriods,
+  DbTransaction,
 } from "@stoker/db";
 import { CommandHandler } from "../shared/command";
 import { assertPermission } from "../shared/permissions";
@@ -178,14 +179,14 @@ export const recordManualJournalCommand: CommandHandler<ManualJournalInput, { id
 /**
  * Generates trial balance from all accounts and lines
  */
-export async function generateTrialBalance(tx: any, orgId: string) {
+export async function generateTrialBalance(tx: DbTransaction, orgId: string) {
   const allAccounts = await tx.select().from(accounts).where(eq(accounts.orgId, orgId));
   const allLines = await tx.select().from(journalLines);
 
-  const report = allAccounts.map((acc: any) => {
-    const accLines = allLines.filter((l: any) => l.accountId === acc.id);
-    const totalDebit = accLines.reduce((sum: bigint, l: any) => sum + BigInt(l.debitMinor), 0n);
-    const totalCredit = accLines.reduce((sum: bigint, l: any) => sum + BigInt(l.creditMinor), 0n);
+  const report = allAccounts.map((acc: typeof accounts.$inferSelect) => {
+    const accLines = allLines.filter((l: typeof journalLines.$inferSelect) => l.accountId === acc.id);
+    const totalDebit = accLines.reduce((sum: bigint, l: typeof journalLines.$inferSelect) => sum + BigInt(l.debitMinor), 0n);
+    const totalCredit = accLines.reduce((sum: bigint, l: typeof journalLines.$inferSelect) => sum + BigInt(l.creditMinor), 0n);
     return {
       code: acc.code,
       name: acc.name,

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { eq, and } from "drizzle-orm";
-import { sites, clientInvoices, boilerReadings, boilers } from "@stoker/db";
+import { sites, clientInvoices, boilerReadings } from "@stoker/db";
 import { CommandHandler } from "../shared/command";
 import { assertPermission } from "../shared/permissions";
 import { NotFoundError } from "../shared/errors";

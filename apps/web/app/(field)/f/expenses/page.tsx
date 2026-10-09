@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { CheckCircle2, DollarSign, Send, ArrowLeft } from "lucide-react";
-import { DemoStore } from "../../../demo-store";
+import { CheckCircle2, Send, ArrowLeft } from "lucide-react";
+import { DemoStore, DemoExpense } from "../../../demo-store";
 
 export default function FieldExpensesPage() {
   const boilers = DemoStore.getBoilers();
   const [selectedBoilerId, setSelectedBoilerId] = useState(boilers[0]?.id || "blr-01");
   const [amount, setAmount] = useState("45.00");
-  const [category, setCategory] = useState<any>("Biomass Fuel");
+  const [category, setCategory] = useState<DemoExpense["category"]>("Biomass Fuel");
   const [description, setDescription] = useState("");
   const [submitted, setSubmitted] = useState(false);
 

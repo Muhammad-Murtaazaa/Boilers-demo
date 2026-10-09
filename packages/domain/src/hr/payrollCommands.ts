@@ -9,6 +9,7 @@ import {
   payrollInputs,
   boilers,
   siteAssignments,
+  DbTransaction,
 } from "@stoker/db";
 import { CommandHandler } from "../shared/command";
 import { assertPermission } from "../shared/permissions";
@@ -28,7 +29,7 @@ export interface CheckCoverageResult {
  * Checks shift coverage for all active boilers across site shifts (HR-06)
  */
 export async function checkShiftCoverage(
-  tx: any,
+  tx: DbTransaction,
   orgId: string,
   siteId: string
 ): Promise<CheckCoverageResult[]> {
@@ -48,10 +49,10 @@ export async function checkShiftCoverage(
     .where(and(eq(siteAssignments.siteId, siteId)));
 
   const operatorAssignments = assignments.filter(
-    (a: any) => a.siteRole === "operator" || a.siteRole === "supervisor"
+    (a: typeof siteAssignments.$inferSelect) => a.siteRole === "operator" || a.siteRole === "supervisor"
   );
 
-  return siteShifts.map((shift: any) => {
+  return siteShifts.map((shift: typeof shifts.$inferSelect) => {
     // Each active boiler requires the shift's requiredOperators
     const needed = Math.max(1, activeBoilers.length) * (shift.requiredOperators || 2);
     const assigned = operatorAssignments.length;

@@ -3,14 +3,12 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  Smartphone,
   DollarSign,
   Fuel,
   CheckCircle2,
   Sparkles,
   ArrowRight,
   Flame,
-  Clock,
   MapPin,
   RefreshCw,
   Send,
@@ -304,7 +302,7 @@ export default function SimulatorPage() {
                     </label>
                     <select
                       value={expenseCategory}
-                      onChange={(e) => setExpenseCategory(e.target.value as any)}
+                      onChange={(e) => setExpenseCategory(e.target.value as DemoExpense["category"])}
                       className="w-full p-2 bg-[#F3F4F7] text-xs font-medium text-gray-900 rounded-xl border border-transparent focus:border-[#FF6600] focus:bg-white focus:outline-none"
                     >
                       <option value="Biomass Fuel">Biomass Fuel (Pellets / Briquettes)</option>

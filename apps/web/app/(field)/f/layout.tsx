@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Flame, DollarSign, LayoutDashboard, Home, ArrowLeft } from "lucide-react";
+import { Flame, DollarSign, LayoutDashboard, Home } from "lucide-react";
 
 export default function FieldLayout({
   children,

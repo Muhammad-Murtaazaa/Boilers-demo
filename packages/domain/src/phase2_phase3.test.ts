@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, afterEach } from "vitest";
 import { createTestDb } from "./test-utils/testDb";
-import { organizations, employees, boilers, sites, cashFloats, accounts } from "@stoker/db";
+import { organizations, employees, accounts } from "@stoker/db";
 import { runCommand } from "./shared/runCommand";
 import {
   scheduleMaintenanceCommand,
@@ -9,7 +9,6 @@ import {
 } from "./boilers/maintenanceCommands";
 import {
   runPayrollCommand,
-  checkShiftCoverage,
 } from "./hr/payrollCommands";
 import {
   lockPeriodCommand,
@@ -19,8 +18,6 @@ import {
 import { generateClientInvoiceCommand } from "./sites/clientInvoicing";
 import { ingestTelemetryCommand } from "./boilers/iotTelemetry";
 import {
-  requestFloatTopUpCommand,
-  approveFloatTopUpCommand,
   scanSystemAlerts,
 } from "./alerts/alertsEngine";
 import { createSiteCommand } from "./sites/siteCommands";

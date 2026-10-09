@@ -7,19 +7,12 @@ import {
   Plus,
   Search,
   CheckCircle2,
-  Clock,
   Building,
   DollarSign,
-  FileText,
   Star,
   Flame,
-  ArrowRight,
-  Filter,
   Check,
   X,
-  Phone,
-  Mail,
-  AlertTriangle,
 } from "lucide-react";
 import { DemoStore, DemoPurchaseOrder, DemoSupplier, DemoBoiler } from "../../demo-store";
 
@@ -47,7 +40,7 @@ export default function ProcurementPage() {
   const [supContact, setSupContact] = useState("");
   const [supPhone, setSupPhone] = useState("");
   const [supEmail, setSupEmail] = useState("");
-  const [supTerms, setSupTerms] = useState("Net 30 Days");
+  const supTerms = "Net 30 Days";
 
   const refreshData = () => {
     setPurchaseOrders(DemoStore.getPurchaseOrders());
@@ -733,7 +726,7 @@ export default function ProcurementPage() {
                 <label className="block font-semibold text-gray-700 mb-1">Supply Category</label>
                 <select
                   value={supCategory}
-                  onChange={(e) => setSupCategory(e.target.value as any)}
+                  onChange={(e) => setSupCategory(e.target.value as DemoSupplier["category"])}
                   className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
                 >
                   <option value="Biomass Fuel">Biomass Fuel (Rice Husk, Briquettes, Wood Pellets)</option>

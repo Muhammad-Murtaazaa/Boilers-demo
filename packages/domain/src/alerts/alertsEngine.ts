@@ -6,8 +6,7 @@ import {
   floatTopUpRequests,
   boilerCertificates,
   fuelDeliveries,
-  sites,
-  boilers,
+  DbTransaction,
 } from "@stoker/db";
 import { CommandHandler } from "../shared/command";
 import { assertPermission } from "../shared/permissions";
@@ -27,14 +26,14 @@ export interface SystemAlert {
 /**
  * Scans all operational vectors to detect actionable anomalies and alerts (M12)
  */
-export async function scanSystemAlerts(tx: any, orgId: string): Promise<SystemAlert[]> {
+export async function scanSystemAlerts(tx: DbTransaction, orgId: string): Promise<SystemAlert[]> {
   const alerts: SystemAlert[] = [];
 
   // 1. Float alerts: Check cash floats below minimum or negative
   const floats = await tx.select().from(cashFloats).where(eq(cashFloats.orgId, orgId));
   for (const f of floats) {
     const txns = await tx.select().from(cashFloatTxns).where(eq(cashFloatTxns.floatId, f.id));
-    const currentBalance = txns.reduce((acc: bigint, t: any) => acc + BigInt(t.amountMinor), 0n);
+    const currentBalance = txns.reduce((acc: bigint, t: typeof cashFloatTxns.$inferSelect) => acc + BigInt(t.amountMinor), 0n);
 
     if (currentBalance < BigInt(f.minBalanceMinor)) {
       alerts.push({
@@ -192,7 +191,7 @@ export const approveFloatTopUpCommand: CommandHandler<ApproveFloatTopUpInput, { 
 
     // Compute new balance
     const txns = await ctx.tx.select().from(cashFloatTxns).where(eq(cashFloatTxns.floatId, req.floatId));
-    const newBalance = txns.reduce((acc: bigint, t: any) => acc + BigInt(t.amountMinor), 0n);
+    const newBalance = txns.reduce((acc: bigint, t: typeof cashFloatTxns.$inferSelect) => acc + BigInt(t.amountMinor), 0n);
 
     return {
       result: { id: input.requestId, newBalanceMinor: newBalance },
