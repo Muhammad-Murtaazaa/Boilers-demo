@@ -14,10 +14,13 @@ import {
   Plus,
   X,
   Fuel,
+  Truck,
 } from "lucide-react";
 import { DemoStore, DemoBoiler, DemoExpense } from "../../demo-store";
+import { FuelLogisticsDashboard } from "./fuel-logistics-dashboard";
 
 export default function DashboardPage() {
+  const [dashboardView, setDashboardView] = useState<"BOILERS" | "FUEL_LOGISTICS">("BOILERS");
   const [boilers, setBoilers] = useState<DemoBoiler[]>([]);
   const [selectedBoilerId, setSelectedBoilerId] = useState<string>("blr-02"); // default select second card like reference
   const [detailModalOpen, setDetailModalOpen] = useState(false);
@@ -116,16 +119,47 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Top Title & Header KPI Section matching the reference image */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight font-[family-name:var(--font-display)]">
-            Boilers
-          </h1>
-          <p className="text-sm text-gray-500 mt-1">
-            Manage and monitor all your fleet boilers across client sites in one place.
-          </p>
-        </div>
+      {/* Top View Selector: Boilers Fleet vs Fuel Sourcing & Logistics Dashboard */}
+      <div className="flex items-center gap-2 p-1.5 bg-gray-100 rounded-2xl w-fit border border-gray-200/80">
+        <button
+          onClick={() => setDashboardView("BOILERS")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            dashboardView === "BOILERS"
+              ? "bg-white text-gray-900 shadow-sm"
+              : "text-gray-500 hover:text-gray-900"
+          }`}
+        >
+          <Flame className="w-4 h-4 text-[#FF6600]" />
+          <span>Boiler Fleet & Operations ({boilers.length})</span>
+        </button>
+
+        <button
+          onClick={() => setDashboardView("FUEL_LOGISTICS")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            dashboardView === "FUEL_LOGISTICS"
+              ? "bg-[#FF6600] text-white shadow-sm"
+              : "text-gray-500 hover:text-gray-900"
+          }`}
+        >
+          <Truck className="w-4 h-4" />
+          <span>Fuel Sourcing & Logistics Dashboard</span>
+        </button>
+      </div>
+
+      {dashboardView === "FUEL_LOGISTICS" ? (
+        <FuelLogisticsDashboard />
+      ) : (
+        <>
+          {/* Top Title & Header KPI Section matching the reference image */}
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div>
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#111827] tracking-tight font-[family-name:var(--font-display)]">
+                Boilers
+              </h1>
+              <p className="text-sm text-gray-500 mt-1">
+                Manage and monitor all your fleet boilers across client sites in one place.
+              </p>
+            </div>
 
         {/* 4 Summary KPI Cards in row just like FleetTrack image */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -315,7 +349,7 @@ export default function DashboardPage() {
                     />
                   </div>
 
-                  {/* Worker Row matching image: Lead Worker Avatar, Name, Last Update */}
+                  {/* Worker Row: Boiler Foreman Avatar, Name, Last Update */}
                   <div className="flex items-center justify-between pt-2 border-t border-gray-100">
                     <div className="flex items-center gap-2 min-w-0">
                       <img
@@ -327,7 +361,7 @@ export default function DashboardPage() {
                         className="w-6 h-6 rounded-full object-cover ring-1 ring-gray-200 shrink-0"
                       />
                       <div className="min-w-0">
-                        <span className="text-[10px] text-gray-400 block leading-none">Lead Operator</span>
+                        <span className="text-[10px] text-[#FF6600] font-bold block leading-none">Boiler Foreman</span>
                         <span className="text-xs font-semibold text-gray-800 truncate block">
                           {leadWorker ? leadWorker.name : b.leadOperatorName}
                         </span>
@@ -359,7 +393,7 @@ export default function DashboardPage() {
                   <div className="flex items-center justify-between text-[11px] font-medium text-gray-500 pt-0.5">
                     <div className="flex items-center gap-1">
                       <span className="w-1.5 h-1.5 rounded-full bg-[#FF6600]" />
-                      <span className="font-bold text-gray-800">${b.dailyRunningCost.toFixed(0)}</span>
+                      <span className="font-bold text-gray-800">Rs. {b.dailyRunningCost.toLocaleString("en-PK")}</span>
                       <span className="text-[10px] text-gray-400">/day</span>
                     </div>
 
@@ -403,6 +437,8 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
+      </>
+      )}
 
       {/* BOILER DETAILS MODAL / DRAWER (Point 4 of Prompt) */}
       {detailModalOpen && selectedBoiler && (
@@ -559,7 +595,7 @@ export default function DashboardPage() {
                     <div className="bg-white p-3 rounded-xl border border-gray-200/60">
                       <span className="text-[10px] text-gray-400 font-medium block">Today&apos;s Expense</span>
                       <span className="text-sm font-bold text-[#FF6600] mt-0.5 block">
-                        ${selectedBoiler.dailyRunningCost.toFixed(2)}
+                        Rs. {selectedBoiler.dailyRunningCost.toLocaleString("en-PK")}
                       </span>
                     </div>
                   </div>
@@ -647,7 +683,7 @@ export default function DashboardPage() {
                       Running Expenses & Consumables
                     </h3>
                     <span className="text-xs font-semibold text-gray-500">
-                      Total Today: ${selectedBoiler.dailyRunningCost.toFixed(2)}
+                      Total Today: Rs. {selectedBoiler.dailyRunningCost.toLocaleString("en-PK")}
                     </span>
                   </div>
 
@@ -693,7 +729,7 @@ export default function DashboardPage() {
 
                           <div className="text-right shrink-0">
                             <span className="text-sm font-extrabold text-gray-900">
-                              ${exp.amount.toFixed(2)}
+                              Rs. {exp.amount.toLocaleString("en-PK")}
                             </span>
                             <span className="text-[10px] text-gray-400 block font-mono">
                               {exp.date}
@@ -754,7 +790,7 @@ export default function DashboardPage() {
 
               <div>
                 <label className="text-xs font-semibold text-gray-700 block mb-1">
-                  Expense Amount ($ USD)
+                  Expense Amount (PKR / Rs.)
                 </label>
                 <input
                   type="number"

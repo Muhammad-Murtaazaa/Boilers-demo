@@ -24,7 +24,7 @@ export default function SimulatorPage() {
   // Mobile App State
   const [selectedBoilerId, setSelectedBoilerId] = useState("blr-01");
   const [selectedWorkerId, setSelectedWorkerId] = useState("emp-01");
-  const [expenseAmount, setExpenseAmount] = useState("45.00");
+  const [expenseAmount, setExpenseAmount] = useState("12500");
   const [expenseCategory, setExpenseCategory] = useState<DemoExpense["category"]>("Biomass Fuel");
   const [expenseDesc, setExpenseDesc] = useState("Biomass pellet loading - 1.2 Ton batch");
   const [submitting, setSubmitting] = useState(false);
@@ -212,7 +212,7 @@ export default function SimulatorPage() {
                         <span className="truncate">{activeBoiler.siteName}</span>
                       </div>
                       <div className="font-bold text-[#FF6600]">
-                        ${activeBoiler.dailyRunningCost.toFixed(2)} today
+                        Rs. {activeBoiler.dailyRunningCost.toLocaleString("en-PK")} today
                       </div>
                     </div>
                   )}
@@ -248,29 +248,29 @@ export default function SimulatorPage() {
                       <button
                         type="button"
                         onClick={() =>
-                          handleQuickPreset("85.00", "Biomass briquette 2.5T feed", "Biomass Fuel")
+                          handleQuickPreset("25000", "Biomass briquette 2.5T feed", "Biomass Fuel")
                         }
                         className="py-1 px-1.5 bg-orange-50 text-[#FF6600] hover:bg-orange-100 rounded-lg text-[10px] font-bold border border-orange-200"
                       >
-                        +$85 Fuel
+                        +Rs. 25k Fuel
                       </button>
                       <button
                         type="button"
                         onClick={() =>
-                          handleQuickPreset("35.00", "Descaling softening liquid", "Water Treatment")
+                          handleQuickPreset("7500", "Descaling softening liquid", "Water Treatment")
                         }
                         className="py-1 px-1.5 bg-sky-50 text-sky-600 hover:bg-sky-100 rounded-lg text-[10px] font-bold border border-sky-200"
                       >
-                        +$35 Water
+                        +Rs. 7.5k Water
                       </button>
                       <button
                         type="button"
                         onClick={() =>
-                          handleQuickPreset("25.00", "Shift crew lunch & tea stipend", "Crew Allowance")
+                          handleQuickPreset("4500", "Shift crew lunch & tea stipend", "Crew Allowance")
                         }
                         className="py-1 px-1.5 bg-purple-50 text-purple-600 hover:bg-purple-100 rounded-lg text-[10px] font-bold border border-purple-200"
                       >
-                        +$25 Crew
+                        +Rs. 4.5k Crew
                       </button>
                     </div>
                   </div>
@@ -278,19 +278,19 @@ export default function SimulatorPage() {
                   {/* Amount Input */}
                   <div>
                     <label className="text-[11px] font-semibold text-gray-600 block mb-1">
-                      Amount ($ USD)
+                      Amount (PKR / Rs.)
                     </label>
                     <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 font-bold text-gray-400">
-                        $
+                      <span className="absolute left-2.5 top-1/2 -translate-y-1/2 font-bold text-xs text-gray-400">
+                        Rs.
                       </span>
                       <input
                         type="number"
-                        step="0.50"
+                        step="1"
                         required
                         value={expenseAmount}
                         onChange={(e) => setExpenseAmount(e.target.value)}
-                        className="w-full pl-7 pr-3 py-2 bg-[#F3F4F7] font-bold text-sm text-gray-900 rounded-xl border border-transparent focus:border-[#FF6600] focus:bg-white focus:outline-none"
+                        className="w-full pl-9 pr-3 py-2 bg-[#F3F4F7] font-bold text-sm text-gray-900 rounded-xl border border-transparent focus:border-[#FF6600] focus:bg-white focus:outline-none"
                       />
                     </div>
                   </div>
@@ -408,7 +408,7 @@ export default function SimulatorPage() {
                     Daily Running Cost
                   </span>
                   <span className="text-lg font-extrabold text-[#FF6600]">
-                    ${activeBoiler.dailyRunningCost.toFixed(2)}
+                    Rs. {activeBoiler.dailyRunningCost.toLocaleString("en-PK")}
                   </span>
                 </div>
               </div>
@@ -453,7 +453,7 @@ export default function SimulatorPage() {
 
                   <div className="text-right shrink-0">
                     <span className="font-extrabold text-gray-900 block">
-                      ${exp.amount.toFixed(2)}
+                      Rs. {exp.amount.toLocaleString("en-PK")}
                     </span>
                     <span className="text-[10px] text-gray-400 font-mono block">
                       {idx === 0 ? "Just now" : exp.date}

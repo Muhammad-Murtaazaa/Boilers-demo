@@ -70,10 +70,10 @@ export default function FieldExpensesPage() {
         </div>
 
         <div>
-          <label className="text-xs font-semibold text-gray-700 block mb-1">Amount ($ USD)</label>
+          <label className="text-xs font-semibold text-gray-700 block mb-1">Amount (PKR / Rs.)</label>
           <input
             type="number"
-            step="0.50"
+            step="1"
             required
             value={amount}
             onChange={(e) => setAmount(e.target.value)}

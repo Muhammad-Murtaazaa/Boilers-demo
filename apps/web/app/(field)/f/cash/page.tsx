@@ -23,7 +23,7 @@ export default function FieldCashPage() {
           fromFloatId: "30000000-0000-0000-0000-000000000001",
           toFloatId: "30000000-0000-0000-0000-000000000002",
           amountMinor: amountMinor.toString(),
-          currency: "USD",
+          currency: "PKR",
         },
       });
 
@@ -43,12 +43,12 @@ export default function FieldCashPage() {
       <div className="p-4 bg-[var(--surface)] border border-[var(--line)] rounded-[var(--radius-card)]">
         <div className="text-xs text-[var(--ink-3)] font-medium">Your Custody Float</div>
         <div className="text-3xl font-extrabold mt-1 text-[var(--ink)] font-[family-name:var(--font-display)]">
-          $850.00
+          Rs. 127,500
         </div>
         <div className="flex items-center justify-between text-xs text-[var(--ink-2)] mt-2 pt-2 border-t border-[var(--line)]">
-          <span>Issued: $1,000.00</span>
-          <span>Spent: $150.00</span>
-          <span>Pending: $0.00</span>
+          <span>Issued: Rs. 150,000</span>
+          <span>Spent: Rs. 22,500</span>
+          <span>Pending: Rs. 0</span>
         </div>
       </div>
 
@@ -80,9 +80,9 @@ export default function FieldCashPage() {
         </div>
 
         <Input
-          label="Transfer Amount (USD)"
+          label="Transfer Amount (PKR / Rs.)"
           type="number"
-          step="0.01"
+          step="1"
           value={transferAmount}
           onChange={(e) => setTransferAmount(e.target.value)}
           required
@@ -110,14 +110,14 @@ export default function FieldCashPage() {
               <div className="font-medium text-[var(--ink)]">Routine Valve Gasket</div>
               <div className="text-[10px] text-[var(--ink-3)]">Expense #EXP-0991 • Approved</div>
             </div>
-            <span className="font-semibold text-[var(--danger)]">-$150.00</span>
+            <span className="font-semibold text-[var(--danger)]">-Rs. 22,500</span>
           </div>
           <div className="py-2 flex items-center justify-between">
             <div>
               <div className="font-medium text-[var(--ink)]">Initial Float Issue</div>
               <div className="text-[10px] text-[var(--ink-3)]">Bank Transfer • Ref #FL-01</div>
             </div>
-            <span className="font-semibold text-[var(--ok)]">+$1,000.00</span>
+            <span className="font-semibold text-[var(--ok)]">+Rs. 150,000</span>
           </div>
         </div>
       </div>

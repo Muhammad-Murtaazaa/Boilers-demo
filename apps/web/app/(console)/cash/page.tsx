@@ -16,10 +16,10 @@ export default function CashConsolePage() {
       site: "Riverside Mill (RVR-01)",
       custodian: "Tariq Mahmood (Supervisor)",
       accountCode: "1020 (Petty Cash - RVR)",
-      issued: "$1,000.00",
-      spent: "$150.00",
-      pending: "$0.00",
-      available: "$850.00",
+      issued: "Rs. 150,000",
+      spent: "Rs. 22,500",
+      pending: "Rs. 0",
+      available: "Rs. 127,500",
       status: "active",
       lastSettlement: "5 days ago",
     },
@@ -28,10 +28,10 @@ export default function CashConsolePage() {
       site: "Faisalabad Weaving Complex",
       custodian: "Ali Asghar (Supervisor)",
       accountCode: "1021 (Petty Cash - FSD)",
-      issued: "$2,000.00",
-      spent: "$800.00",
-      pending: "$1,450.00",
-      available: "$1,200.00",
+      issued: "Rs. 300,000",
+      spent: "Rs. 120,000",
+      pending: "Rs. 45,000",
+      available: "Rs. 135,000",
       status: "active",
       lastSettlement: "12 days ago",
     },
@@ -40,10 +40,10 @@ export default function CashConsolePage() {
       site: "Highland Biofuels Plant",
       custodian: "Gulzar Hussain (Operator)",
       accountCode: "1022 (Petty Cash - HLD)",
-      issued: "$500.00",
-      spent: "$500.00",
-      pending: "$0.00",
-      available: "$0.00",
+      issued: "Rs. 75,000",
+      spent: "Rs. 75,000",
+      pending: "Rs. 0",
+      available: "Rs. 0",
       status: "settling",
       lastSettlement: "Settling now",
     },
@@ -51,6 +51,7 @@ export default function CashConsolePage() {
 
   const handleIssue = (e: React.FormEvent) => {
     e.preventDefault();
+    const val = parseFloat(amount) || 0;
     setFloatsList([
       ...floatsList,
       {
@@ -58,10 +59,10 @@ export default function CashConsolePage() {
         site,
         custodian,
         accountCode: "1023 (New Petty Cash)",
-        issued: `$${parseFloat(amount).toFixed(2)}`,
-        spent: "$0.00",
-        pending: "$0.00",
-        available: `$${parseFloat(amount).toFixed(2)}`,
+        issued: `Rs. ${val.toLocaleString("en-PK")}`,
+        spent: "Rs. 0",
+        pending: "Rs. 0",
+        available: `Rs. ${val.toLocaleString("en-PK")}`,
         status: "active",
         lastSettlement: "Just now",
       },
@@ -102,7 +103,7 @@ export default function CashConsolePage() {
       accessor: (row: typeof floatsList[0]) => (
         <div>
           <div className="font-mono font-bold text-sm text-[var(--ok)]">{row.available}</div>
-          {row.pending !== "$0.00" && (
+          {row.pending !== "Rs. 0" && (
             <div className="text-[10px] text-[var(--warning)] font-mono">Pending: {row.pending}</div>
           )}
         </div>
@@ -190,9 +191,9 @@ export default function CashConsolePage() {
               />
 
               <Input
-                label="Float Amount (USD)"
+                label="Float Amount (PKR / Rs.)"
                 type="number"
-                step="0.01"
+                step="1"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
                 required

@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { Panel, DataTable, StatusPill, Button } from "@stoker/ui";
-import { AlertTriangle, Image as ImageIcon, Video } from "lucide-react";
+import { AlertTriangle, Image as ImageIcon, Video, Truck, Scale } from "lucide-react";
+import { FuelLogisticsDashboard } from "../dashboard/fuel-logistics-dashboard";
 
 interface DeliveryItem {
   id: string;
@@ -20,6 +21,7 @@ interface DeliveryItem {
 }
 
 export default function DeliveriesConsolePage() {
+  const [deliveriesTab, setDeliveriesTab] = useState<"DASHBOARD" | "TRUCKS">("DASHBOARD");
   const [selectedDelivery, setSelectedDelivery] = useState<DeliveryItem | null>(null);
 
   const deliveriesList = [
@@ -128,16 +130,47 @@ export default function DeliveriesConsolePage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold tracking-tight text-[var(--ink)] font-[family-name:var(--font-display)]">
-            Fuel Logistics & Proof of Arrival
-          </h1>
-          <p className="text-sm text-[var(--ink-3)] mt-1">
-            Truck dispatches, automated weighbridge shortfall dispute trigger (&gt;2% threshold), and GPS geofence media proof.
-          </p>
-        </div>
+      {/* Top View Selector */}
+      <div className="flex items-center gap-2 p-1.5 bg-gray-100 rounded-2xl w-fit border border-gray-200/80">
+        <button
+          onClick={() => setDeliveriesTab("DASHBOARD")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            deliveriesTab === "DASHBOARD"
+              ? "bg-[#FF6600] text-white shadow-sm"
+              : "text-gray-500 hover:text-gray-900"
+          }`}
+        >
+          <Truck className="w-4 h-4" />
+          <span>Fuel Sourcing & Logistics Dashboard</span>
+        </button>
+
+        <button
+          onClick={() => setDeliveriesTab("TRUCKS")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            deliveriesTab === "TRUCKS"
+              ? "bg-white text-gray-900 shadow-sm"
+              : "text-gray-500 hover:text-gray-900"
+          }`}
+        >
+          <Scale className="w-4 h-4 text-emerald-600" />
+          <span>Weighbridge Truck Dispatches & GPS</span>
+        </button>
       </div>
+
+      {deliveriesTab === "DASHBOARD" ? (
+        <FuelLogisticsDashboard />
+      ) : (
+        <>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold tracking-tight text-[var(--ink)] font-[family-name:var(--font-display)]">
+                Fuel Logistics & Proof of Arrival
+              </h1>
+              <p className="text-sm text-[var(--ink-3)] mt-1">
+                Truck dispatches, automated weighbridge shortfall dispute trigger (&gt;2% threshold), and GPS geofence media proof.
+              </p>
+            </div>
+          </div>
 
       <div className="grid grid-cols-3 gap-4">
         <div className="p-4 bg-[var(--surface)] border border-[var(--line)] rounded-[var(--radius-card)]">
@@ -255,6 +288,8 @@ export default function DeliveriesConsolePage() {
             </div>
           </div>
         </div>
+      )}
+      </>
       )}
     </div>
   );

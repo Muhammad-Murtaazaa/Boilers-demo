@@ -24,7 +24,7 @@ export default function HRConsolePage() {
   const [assignedBoilerId, setAssignedBoilerId] = useState("");
   const [shift, setShift] = useState<DemoWorker["shift"]>("Morning (06:00 - 14:00)");
   const [phone, setPhone] = useState("+92 ");
-  const [dailyWage, setDailyWage] = useState("$35.00");
+  const [dailyWage, setDailyWage] = useState("Rs. 3,500");
 
   // Modal State for Edit Staff
   const [editModalOpen, setEditModalOpen] = useState(false);

@@ -27,8 +27,8 @@ export default function InvoicingPage() {
   const [invBoilerId, setInvBoilerId] = useState("");
   const [invPeriod, setInvPeriod] = useState("October 2026");
   const [invTonnage, setInvTonnage] = useState("1250.0");
-  const [invTariff, setInvTariff] = useState("37.00");
-  const [invSurcharge, setInvSurcharge] = useState("1100.00");
+  const [invTariff, setInvTariff] = useState("9500");
+  const [invSurcharge, setInvSurcharge] = useState("45000");
   const [invDueDate, setInvDueDate] = useState(new Date().toISOString().slice(0, 10));
 
   // Invoice Preview Modal
@@ -172,7 +172,7 @@ export default function InvoicingPage() {
             </div>
           </div>
           <div className="mt-3">
-            <div className="text-2xl font-extrabold text-gray-900">$37.38 / Ton</div>
+            <div className="text-2xl font-extrabold text-gray-900">Rs. 9,500 / Ton</div>
             <div className="text-[11px] font-medium text-gray-500 mt-1">Contract indexed to biomass index</div>
           </div>
         </div>
@@ -246,11 +246,11 @@ export default function InvoicingPage() {
                       <span className="font-bold text-gray-900">{inv.steamTonnage.toLocaleString()}</span> Tonnes
                     </td>
                     <td className="py-3 px-3 text-gray-600">
-                      <div>${inv.tariffPerTon.toFixed(2)} / t</div>
-                      <div className="text-[10px] text-gray-400">+${inv.fuelSurcharge.toFixed(2)} fuel</div>
+                      <div>Rs. {inv.tariffPerTon.toLocaleString("en-PK")} / t</div>
+                      <div className="text-[10px] text-gray-400">+Rs. {inv.fuelSurcharge.toLocaleString("en-PK")} fuel</div>
                     </td>
                     <td className="py-3 px-3 font-extrabold text-gray-900 text-sm">
-                      ${inv.totalAmount.toFixed(2)}
+                      Rs. {inv.totalAmount.toLocaleString("en-PK")}
                     </td>
                     <td className="py-3 px-3">
                       <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${statusBadge}`}>
@@ -357,10 +357,10 @@ export default function InvoicingPage() {
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-gray-700 mb-1">Tariff ($/Ton)</label>
+                  <label className="block font-semibold text-gray-700 mb-1">Tariff (PKR / Ton)</label>
                   <input
                     type="number"
-                    step="0.5"
+                    step="100"
                     required
                     value={invTariff}
                     onChange={(e) => setInvTariff(e.target.value)}
@@ -368,10 +368,10 @@ export default function InvoicingPage() {
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-gray-700 mb-1">Fuel Surcharge ($)</label>
+                  <label className="block font-semibold text-gray-700 mb-1">Fuel Surcharge (PKR)</label>
                   <input
                     type="number"
-                    step="10"
+                    step="1000"
                     value={invSurcharge}
                     onChange={(e) => setInvSurcharge(e.target.value)}
                     className="w-full px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
@@ -384,19 +384,19 @@ export default function InvoicingPage() {
                 <div className="flex justify-between text-gray-600">
                   <span>Steam Energy Subtotal:</span>
                   <span className="font-semibold text-gray-900">
-                    ${((parseFloat(invTonnage) || 0) * (parseFloat(invTariff) || 0) + (parseFloat(invSurcharge) || 0)).toFixed(2)}
+                    Rs. {Math.round((parseFloat(invTonnage) || 0) * (parseFloat(invTariff) || 0) + (parseFloat(invSurcharge) || 0)).toLocaleString("en-PK")}
                   </span>
                 </div>
                 <div className="flex justify-between text-gray-600">
                   <span>Sales Tax (16% Provincial):</span>
                   <span className="font-semibold text-gray-900">
-                    ${(((parseFloat(invTonnage) || 0) * (parseFloat(invTariff) || 0) + (parseFloat(invSurcharge) || 0)) * 0.16).toFixed(2)}
+                    Rs. {Math.round(((parseFloat(invTonnage) || 0) * (parseFloat(invTariff) || 0) + (parseFloat(invSurcharge) || 0)) * 0.16).toLocaleString("en-PK")}
                   </span>
                 </div>
                 <div className="flex justify-between text-base font-extrabold text-gray-900 pt-1 border-t border-gray-200">
                   <span>Total Amount Due:</span>
                   <span className="text-[#FF6600]">
-                    ${(((parseFloat(invTonnage) || 0) * (parseFloat(invTariff) || 0) + (parseFloat(invSurcharge) || 0)) * 1.16).toFixed(2)}
+                    Rs. {Math.round(((parseFloat(invTonnage) || 0) * (parseFloat(invTariff) || 0) + (parseFloat(invSurcharge) || 0)) * 1.16).toLocaleString("en-PK")}
                   </span>
                 </div>
               </div>
@@ -481,16 +481,16 @@ export default function InvoicingPage() {
                   <tr>
                     <td className="py-2.5 px-3">High-Pressure Saturated Steam Supply ({previewInvoice.billingPeriod})</td>
                     <td className="py-2.5 px-3 text-right">{previewInvoice.steamTonnage.toLocaleString()} Tonnes</td>
-                    <td className="py-2.5 px-3 text-right">${previewInvoice.tariffPerTon.toFixed(2)} / t</td>
+                    <td className="py-2.5 px-3 text-right">Rs. {previewInvoice.tariffPerTon.toLocaleString("en-PK")} / t</td>
                     <td className="py-2.5 px-3 text-right font-medium">
-                      ${(previewInvoice.steamTonnage * previewInvoice.tariffPerTon).toFixed(2)}
+                      Rs. {(previewInvoice.steamTonnage * previewInvoice.tariffPerTon).toLocaleString("en-PK")}
                     </td>
                   </tr>
                   <tr>
                     <td className="py-2.5 px-3">Biomass Fuel Price Indexation Surcharge</td>
                     <td className="py-2.5 px-3 text-right">1 Job</td>
-                    <td className="py-2.5 px-3 text-right">${previewInvoice.fuelSurcharge.toFixed(2)}</td>
-                    <td className="py-2.5 px-3 text-right font-medium">${previewInvoice.fuelSurcharge.toFixed(2)}</td>
+                    <td className="py-2.5 px-3 text-right">Rs. {previewInvoice.fuelSurcharge.toLocaleString("en-PK")}</td>
+                    <td className="py-2.5 px-3 text-right font-medium">Rs. {previewInvoice.fuelSurcharge.toLocaleString("en-PK")}</td>
                   </tr>
                 </tbody>
               </table>
@@ -500,15 +500,15 @@ export default function InvoicingPage() {
             <div className="flex flex-col items-end text-xs space-y-1">
               <div className="flex justify-between w-64 text-gray-600">
                 <span>Subtotal:</span>
-                <span className="font-semibold text-gray-900">${previewInvoice.subtotal.toFixed(2)}</span>
+                <span className="font-semibold text-gray-900">Rs. {previewInvoice.subtotal.toLocaleString("en-PK")}</span>
               </div>
               <div className="flex justify-between w-64 text-gray-600">
                 <span>Sales Tax (16%):</span>
-                <span className="font-semibold text-gray-900">${previewInvoice.taxAmount.toFixed(2)}</span>
+                <span className="font-semibold text-gray-900">Rs. {previewInvoice.taxAmount.toLocaleString("en-PK")}</span>
               </div>
               <div className="flex justify-between w-64 text-base font-extrabold text-gray-900 pt-2 border-t border-gray-200">
                 <span>Total Amount:</span>
-                <span className="text-[#FF6600]">${previewInvoice.totalAmount.toFixed(2)}</span>
+                <span className="text-[#FF6600]">Rs. {previewInvoice.totalAmount.toLocaleString("en-PK")}</span>
               </div>
             </div>
 

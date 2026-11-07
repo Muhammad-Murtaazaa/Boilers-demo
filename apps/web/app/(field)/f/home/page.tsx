@@ -16,7 +16,7 @@ export default function FieldHomePage() {
   const [staff, setStaff] = useState<DemoWorker[]>([]);
 
   const [selectedBoilerId, setSelectedBoilerId] = useState("blr-01");
-  const [amount, setAmount] = useState("45.00");
+  const [amount, setAmount] = useState("12500");
   const [category, setCategory] = useState<DemoExpense["category"]>("Biomass Fuel");
   const [description, setDescription] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -115,7 +115,7 @@ export default function FieldHomePage() {
           <div className="pt-2 flex items-center justify-between text-xs">
             <span className="text-gray-500">Today&apos;s Running Expenses:</span>
             <span className="font-extrabold text-[#FF6600] text-sm">
-              ${activeBoiler.dailyRunningCost.toFixed(2)}
+              Rs. {activeBoiler.dailyRunningCost.toLocaleString("en-PK")}
             </span>
           </div>
         )}
@@ -148,45 +148,45 @@ export default function FieldHomePage() {
             <button
               type="button"
               onClick={() => {
-                setAmount("85.00");
+                setAmount("25000");
                 setCategory("Biomass Fuel");
                 setDescription("Biomass briquettes 2.5T feed");
               }}
               className="p-1.5 bg-orange-50 text-[#FF6600] rounded-xl text-[10px] font-bold border border-orange-200 text-center"
             >
-              +$85 Fuel
+              +Rs. 25k Fuel
             </button>
             <button
               type="button"
               onClick={() => {
-                setAmount("35.00");
+                setAmount("7500");
                 setCategory("Water Treatment");
                 setDescription("Boiler descaling chemicals");
               }}
               className="p-1.5 bg-sky-50 text-sky-600 rounded-xl text-[10px] font-bold border border-sky-200 text-center"
             >
-              +$35 Water
+              +Rs. 7.5k Water
             </button>
             <button
               type="button"
               onClick={() => {
-                setAmount("25.00");
+                setAmount("4500");
                 setCategory("Crew Allowance");
                 setDescription("Shift crew meals & tea");
               }}
               className="p-1.5 bg-purple-50 text-purple-600 rounded-xl text-[10px] font-bold border border-purple-200 text-center"
             >
-              +$25 Crew
+              +Rs. 4.5k Crew
             </button>
           </div>
         </div>
 
         {/* Amount */}
         <div>
-          <label className="text-xs font-semibold text-gray-700 block mb-1">Amount ($ USD)</label>
+          <label className="text-xs font-semibold text-gray-700 block mb-1">Amount (PKR / Rs.)</label>
           <input
             type="number"
-            step="0.50"
+            step="1"
             required
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
